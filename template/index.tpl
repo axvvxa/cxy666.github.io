@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>首页</title>
+    <title>{$pageTitle}</title>
 </head>
 <body>
-首页
+首页asdf
+
 </body>
 </html>
