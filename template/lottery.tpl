@@ -45,7 +45,7 @@
         $('#btn-lottery').click(function(){
 //            if(rotate) return;//限制只能玩一次
             rotate = true;
-            var index = 1;//1,2,3,4,5,
+            var index = 1;//获得1,2,3,4,5,奖
             $("#turntable").rotate({
                 angle: 0,
                 duration: 10000, //转动时间
@@ -56,7 +56,7 @@
                         content:prizeMap[index].prize,
                         title: false,
 //                        time: 5000,
-                        // shadeClose: false,
+//                        shadeClose: false,
 //                        style: 'width:200px; height:200px; border:none;'
                         area: ['300px','80px']
                     });
