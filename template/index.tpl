@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>{$pageTitle}</title>
+    {include file="template/header.tpl"}
 </head>
 <body>
 首页asdf
