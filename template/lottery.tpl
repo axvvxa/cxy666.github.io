@@ -45,21 +45,34 @@
         $('#btn-lottery').click(function(){
 //            if(rotate) return;//限制只能玩一次
             rotate = true;
-            var index = 1;//获得1,2,3,4,5,奖
-            $("#turntable").rotate({
-                angle: 0,
-                duration: 10000, //转动时间
-                animateTo: 360*6+ prizeMap[index].angle, //转动角度
-                callback: function(){
-                    layer.open({
-                        type:1,
-                        content:prizeMap[index].prize,
-                        title: false,
-//                        time: 5000,
-//                        shadeClose: false,
-//                        style: 'width:200px; height:200px; border:none;'
-                        area: ['300px','80px']
-                    });
+            var loading;
+            $.ajax({
+                type: 'post',
+                url: 'server/lottery.server.php',
+                data: {mode:'lottery'},
+                dataType: 'json',
+                beforeSend:function(){ loading=layer.load();},
+                complete: function() { layer.close(loading);},
+                success: function(res) {
+                    if(res.success){
+                        var index = res.prize;
+                        $("#turntable").rotate({
+                            angle: 0,
+                            duration: 10000, //转动时间
+                            animateTo: 360*6+ prizeMap[index].angle, //转动角度
+                            callback: function(){
+                                layer.open({
+                                    type:1,
+                                    content:prizeMap[index].prize,
+                                    title: false,
+//                                  time: 5000,
+//                                  shadeClose: false,
+//                                  style: 'width:200px; height:200px; border:none;'
+                                    area: ['300px','80px']
+                                });
+                            }
+                        });
+                    }
                 }
             });
         });
