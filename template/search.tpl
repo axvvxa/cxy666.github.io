@@ -24,8 +24,61 @@
 {literal}
     <script>
         $(function(){
+//            $.cookie("searchWord", null, { expires: -1, path: '/' });//清除该记录
+            var searchWord = $("input[name='searchWord']");
+            $("#searchBtn").on("click", function(){
+                if(searchWord.val() != '') {
+                    addLog(searchWord.val());
+                }
+            });
+            function addLog(word) {
+                var sWord, len = 0, json = "", json1, canAdd = true;
+                if(!$.cookie("searchWord")){
+                    sWord = $.cookie("searchWord", "[{res:'"+word+"'}]", {expires:7, path:'/'});
+                    len ++;
+                } else {
+                    sWord = $.cookie("searchWord");
+                    json1 = eval('(' + sWord + ')');
+                    $(json1).each(function(){
+                        if(word == this['res']){//同值
+                            canAdd = false;
+                            return false;
+                        }
+                        len ++;
+                    });
+                    if(canAdd) {
+                        $(json1).each(function() {
+                            json += "{res:'"+this['res'] +"'},";
+                        });
+                        json = "[{res:'" + word + "'}," + json + ']';
+                        $.cookie("searchWord", json, {expires:7, path:'/'});
+                    } else {
+                        json = eval("(" + $.cookie("searchWord") + ")");
+                        if( len <= json.length-1) {
+                            json.splice(0, 0, json[len]);//重复的值调整位置，放到最前面并删掉原本该位置
+                            json.splice(len+1, 1);//重复的值调整位置，放到最前面并删掉原本该位置
+                            sWord = JSON.stringify(json);
+                            $.cookie("searchWord", sWord, {expires:7, path:"/"});
+                        }
+                    }
+                }
+                json = eval("(" + $.cookie("searchWord") + ")");
 
-        })
+                if(json.length>9) {//历史浏览数大于9，删第一个
+                    json.pop();
+                    json =JSON.stringify(json);
+                    $.cookie("searchWord", json, { expires: 7, path: '/'});
+                }
+            }
+            if($.cookie("searchWord")){
+                var logWord = eval($.cookie("searchWord"));
+                var lis = '';
+                $.each(logWord, function(){
+                    lis += '<li>' + this['res'] + '</li>';
+                });
+                $(".searchLog").html(lis);
+            }
+        });
     </script>
 {/literal}
 </body>
