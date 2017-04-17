@@ -10,4 +10,4 @@ $tpl = new Smarty();
 
 
 $tpl->assign('pageTitle','三级联动');
-$tpl->display('template/storey.tpl');
+$tpl->display('template/storey1.tpl');
