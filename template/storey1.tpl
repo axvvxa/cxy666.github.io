@@ -3,7 +3,8 @@
 <head>
     {include file="template/header.tpl"}
     <style>
-        div { border:1px solid #000; padding-left:10px; margin-right:5px;width:200px;float:left;}
+        div { border:1px solid #000; margin-right:5px;width:200px;float:left;}
+        p { padding-left:10px;}
         .cur { background:#f2f2f2;}
     </style>
 </head>
@@ -11,6 +12,8 @@
 <div id="box1"></div>
 <div id="box2"></div>
 <div id="box3"></div>
+
+<h3 id="val">后期加上显示已被选中的值</h3>
 {literal}
 <script>
     $(function() {
