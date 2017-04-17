@@ -9,3 +9,4 @@ a{outline: none;text-decoration: none;transition: all ease .5s;color:#655;}
 a:hover{text-decoration: none;}
 img{border: 0; max-width: 100%; vertical-align: middle;}
 input{outline: none;}
+.wrap { width:1190px;margin:0 auto;}
